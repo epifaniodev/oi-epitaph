@@ -3,6 +3,7 @@ import { useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import { Drawer } from "./Drawer";
 import { ProductCard } from "./ProductCard";
 import { SideNav } from "./SideNav";
+import { getAccountBalance } from "@/lib/catalog.functions";
 import type { Product } from "@/lib/categories";
 
 type Sort = "sales" | "price-asc" | "price-desc" | "title";
@@ -34,7 +35,6 @@ export function StoreShell({
   meta,
   items,
   current,
-  balance,
   error,
   page,
 }: {
@@ -42,11 +42,11 @@ export function StoreShell({
   meta: string;
   items: Product[];
   current: string;
-  balance: string;
   error?: string | undefined;
   /** Página estática (tutorial, suporte). Quando existe, substitui a grelha. */
   page?: ReactNode;
 }) {
+  const [balance, setBalance] = useState("—");
   const [q, setQ] = useState("");
   const [sort, setSort] = useState<Sort>("sales");
   const [openId, setOpenId] = useState<string | null>(null);
@@ -86,6 +86,21 @@ export function StoreShell({
     menuToggleRef.current?.focus();
   };
 
+  /* O saldo não bloqueia a página: o catálogo pinta já e a barra lateral
+     preenche-se quando chegar. Se falhar, fica «—» — é informação acessória,
+     não motivo para não mostrar a loja. */
+  useEffect(() => {
+    let alive = true;
+    void getAccountBalance()
+      .then((r) => {
+        if (alive && r?.balance) setBalance(r.balance);
+      })
+      .catch(() => {});
+    return () => {
+      alive = false;
+    };
+  }, []);
+
   /* O menu lateral é uma gaveta em ecrã estreito: Escape fecha-a, senão ficava
      aberta por cima do conteúdo sem forma de a dispensar pelo teclado. */
   useEffect(() => {
@@ -99,6 +114,12 @@ export function StoreShell({
 
   return (
     <>
+      {/* Primeiro elemento focável da página: sem isto, quem navega por teclado
+          tem de atravessar a barra lateral inteira antes de chegar ao catálogo. */}
+      <a className="skip-link" href="#content">
+        Pular para o catálogo
+      </a>
+
       <div className="noise" aria-hidden="true" />
       <div className="glow" aria-hidden="true" />
 

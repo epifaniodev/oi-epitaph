@@ -36,3 +36,6 @@ dist-ssr
 .env.*
 !.env.example
 .dev.vars
+
+# Config local do dev server (porta, comandos) — não é do projeto
+.claude/

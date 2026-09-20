@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 
 import { StoreError, StoreLayout } from "@/components/store/StoreLayout";
 import { getCatalog } from "@/lib/catalog.functions";
+import { storeHeadLinks } from "@/lib/head";
 
 /**
  * A raiz é a loja.
@@ -20,9 +21,16 @@ export const Route = createFileRoute("/")({
           "Catálogo Axye: contas, proxies, perfis, créditos de IA e ferramentas digitais com entrega automática.",
       },
     ],
-    links: [{ rel: "stylesheet", href: "/styles.css" }],
+    links: storeHeadLinks,
   }),
   loader: () => getCatalog({ data: { section: "produtos" } }),
-  component: () => <StoreLayout data={Route.useLoaderData()} />,
+  component: Catalogo,
   errorComponent: StoreError,
 });
+
+/* Componente com nome, e não uma arrow inline: `Route.useLoaderData()` é um
+   hook, e a regra `react-hooks/rules-of-hooks` só o reconhece dentro de uma
+   função que comece por maiúscula. */
+function Catalogo() {
+  return <StoreLayout data={Route.useLoaderData()} />;
+}

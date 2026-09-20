@@ -3,6 +3,7 @@ import { createFileRoute, notFound } from "@tanstack/react-router";
 import { StoreError, StoreLayout } from "@/components/store/StoreLayout";
 import { getCatalog } from "@/lib/catalog.functions";
 import { findNav } from "@/lib/categories";
+import { storeHeadLinks } from "@/lib/head";
 
 /**
  * Secção do catálogo → URL próprio. Antes isto era uma rota hash (`#/proxies`),
@@ -20,7 +21,7 @@ export const Route = createFileRoute("/loja/$seccao")({
         { title: `${label} · Marketplace Axye` },
         { name: "description", content: `${label} no catálogo Axye.` },
       ],
-      links: [{ rel: "stylesheet", href: "/styles.css" }],
+      links: storeHeadLinks,
     };
   },
   loader: async ({ params }) => {
@@ -31,6 +32,12 @@ export const Route = createFileRoute("/loja/$seccao")({
     }
     return getCatalog({ data: { section: params.seccao } });
   },
-  component: () => <StoreLayout data={Route.useLoaderData()} />,
+  component: Seccao,
   errorComponent: StoreError,
 });
+
+/* Componente com nome: `Route.useLoaderData()` é um hook, e a regra
+   `react-hooks/rules-of-hooks` só o aceita dentro de uma função com maiúscula. */
+function Seccao() {
+  return <StoreLayout data={Route.useLoaderData()} />;
+}

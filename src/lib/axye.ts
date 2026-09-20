@@ -65,9 +65,9 @@ export async function axyeFetch<T = unknown>(
     },
   });
 
-  const body = (await res.json().catch(() => null)) as
-    | { error?: { code?: string; message?: string } }
-    | null;
+  const body = (await res.json().catch(() => null)) as {
+    error?: { code?: string; message?: string };
+  } | null;
 
   if (!res.ok) {
     // Tratado pelo código, não pela mensagem — a mensagem pode ser reescrita.
@@ -90,6 +90,11 @@ export function listProducts({
   q,
 }: { limit?: number; offset?: number; q?: string | undefined } = {}) {
   return axyeFetch<ProductsPage>("/v1/products", { limit, offset, q });
+}
+
+/** Saldo da conta, em centavos. */
+export function getBalance() {
+  return axyeFetch<{ balance_cents?: number; currency?: string }>("/v1/account/balance");
 }
 
 /** Detalhe por UUID ou slug. */

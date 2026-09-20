@@ -1,4 +1,4 @@
-/** Formatação partilhada pela loja. Portado de `public/app.js`. */
+/** Dinheiro e estoque, partilhados pela loja. Portado de `public/app.js`. */
 
 export function brl(cents: number | null | undefined): string {
   return new Intl.NumberFormat("pt-BR", {
@@ -18,17 +18,4 @@ export function stockLabel(n: number | null | undefined): string {
   if (n === null || n === undefined) return "Estoque —";
   if (n <= 0) return "Sem estoque";
   return `${n} em estoque`;
-}
-
-/** O `description` da API vem em HTML; o painel mostra texto simples. */
-export function stripHtml(html: string): string {
-  return html
-    .replace(/<[^>]*>/g, " ")
-    .replace(/&nbsp;/g, " ")
-    .replace(/&amp;/g, "&")
-    .replace(/&lt;/g, "<")
-    .replace(/&gt;/g, ">")
-    .replace(/&quot;/g, '"')
-    .replace(/\s+/g, " ")
-    .trim();
 }

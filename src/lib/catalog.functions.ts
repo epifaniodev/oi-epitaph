@@ -14,13 +14,8 @@
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
 
-import { AxyeError, getProduct, listProducts } from "./axye";
-import {
-  findNav,
-  groupByCategory,
-  withCategory,
-  type Product,
-} from "./categories";
+import { AxyeError, getBalance, getProduct, listProducts } from "./axye";
+import { findNav, groupByCategory, withCategory, type Product } from "./categories";
 
 export type CatalogResult = {
   total: number;
@@ -114,5 +109,32 @@ export const getProductDetail = createServerFn({ method: "GET", strict: false })
     if (!p) throw new AxyeError("not_found", "Produto não encontrado.", 404);
     return withCategory(p);
   });
+
+/**
+ * Saldo da conta, já formatado.
+ *
+ * A formatação fica aqui, do lado do servidor, e não em `format.ts` no cliente:
+ * o `Intl` do browser e o do runtime do servidor podem divergir no separador de
+ * milhares, e o número tem de ser o mesmo para todos.
+ *
+ * Falha de rede não é erro de página: devolve `null` e a barra lateral mostra
+ * «—», tal como o original fazia.
+ */
+export const getAccountBalance = createServerFn({ method: "GET", strict: false }).handler(
+  async (): Promise<{ balance: string } | null> => {
+    try {
+      const r = await getBalance();
+      const cents = Number(r.balance_cents ?? 0);
+      return {
+        balance: new Intl.NumberFormat("pt-BR", {
+          style: "currency",
+          currency: r.currency || "BRL",
+        }).format(cents / 100),
+      };
+    } catch {
+      return null;
+    }
+  },
+);
 
 export { toUserMessage };

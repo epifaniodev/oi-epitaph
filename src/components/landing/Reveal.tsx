@@ -53,13 +53,7 @@ export function Reveal({
   const delay = `${Math.min(index % 6, 5) * 60}ms`;
 
   return (
-    <Tag
-      ref={ref}
-      data-reveal
-      className={className}
-      style={{ transitionDelay: delay }}
-      {...rest}
-    >
+    <Tag ref={ref} data-reveal className={className} style={{ transitionDelay: delay }} {...rest}>
       {children}
     </Tag>
   );

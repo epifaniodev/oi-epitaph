@@ -35,7 +35,10 @@ const RULES: [RegExp, string][] = [
   [/g-?ads|google ads|pinterest ads|conta google ads/i, "Google / Pinterest Ads"],
   [/g-?mail forte|pacote \d+ e-?mails|e-?mail outlook|email outlook|hotmail/i, "E-mails"],
   [/perfil|fanpages|amigos|seguidores|tiktok/i, "Perfis sociais"],
-  [/canva|capcut|kit criativo|design|edi[cç][aã]o|wallpapers|pack|lifestyle|piment/i, "Design & criativos"],
+  [
+    /canva|capcut|kit criativo|design|edi[cç][aã]o|wallpapers|pack|lifestyle|piment/i,
+    "Design & criativos",
+  ],
   [/\bproxy\b/i, "Proxies"],
   [/netflix|hbo|youtube premium/i, "Streaming"],
   [/api\s*\|+|iqoption|deriv|pocket option|quotex|exnova/i, "APIs trading"],

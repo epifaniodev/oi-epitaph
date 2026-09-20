@@ -22,7 +22,6 @@ export function StoreLayout({ data }: { data: CatalogResult }) {
       meta={`${data.total} produto${data.total === 1 ? "" : "s"}`}
       items={data.items}
       current={data.section}
-      balance="—"
     />
   );
 }

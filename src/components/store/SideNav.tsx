@@ -1,7 +1,7 @@
 import { MARKET_NAV, type NavItem } from "@/lib/categories";
 
 /** Secção do catálogo → URL. `produtos` é a raiz da loja. */
-export function sectionHref(id: string): string {
+function sectionHref(id: string): string {
   return id === "produtos" ? "/loja" : `/loja/${id}`;
 }
 
@@ -38,13 +38,7 @@ function Item({ item, current }: { item: NavItem; current: string }) {
   );
 }
 
-export function SideNav({
-  current,
-  balance,
-}: {
-  current: string;
-  balance: string;
-}) {
+export function SideNav({ current, balance }: { current: string; balance: string }) {
   return (
     <aside className="side" id="side">
       <div className="side-brand">

@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 
 import { StoreShell } from "@/components/store/StoreShell";
+import { storeHeadLinks } from "@/lib/head";
 
 export const Route = createFileRoute("/tutorial")({
   head: () => ({
@@ -8,7 +9,7 @@ export const Route = createFileRoute("/tutorial")({
       { title: "Tutorial · Marketplace Axye" },
       { name: "description", content: "Como usar o marketplace Axye." },
     ],
-    links: [{ rel: "stylesheet", href: "/styles.css" }],
+    links: storeHeadLinks,
   }),
   component: Tutorial,
 });
@@ -20,7 +21,6 @@ function Tutorial() {
       meta=""
       items={[]}
       current="tutorial"
-      balance="—"
       page={
         <article className="page-card">
           <h2>Como usar o marketplace</h2>

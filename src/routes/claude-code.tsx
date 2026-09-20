@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 
 import { LandingPage } from "@/components/landing/LandingPage";
+import { FONT_HREF } from "@/lib/head";
 
 /**
  * Landing "Claude Code na Prática".
@@ -52,10 +53,7 @@ export const Route = createFileRoute("/claude-code")({
       { rel: "stylesheet", href: "/claude-code/landing.css" },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
-      {
-        rel: "stylesheet",
-        href: "https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=IBM+Plex+Mono:wght@400;500&family=Manrope:wght@400;500;600;700&display=swap",
-      },
+      { rel: "stylesheet", href: FONT_HREF },
     ],
   }),
   component: LandingPage,

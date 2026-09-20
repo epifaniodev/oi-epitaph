@@ -93,9 +93,12 @@ export function LandingPage() {
   useEffect(() => {
     const offer = offerRef.current;
     if (!offer) return;
-    const obs = new IntersectionObserver(([entry]) => setOfferVisible(Boolean(entry?.isIntersecting)), {
-      threshold: 0,
-    });
+    const obs = new IntersectionObserver(
+      ([entry]) => setOfferVisible(Boolean(entry?.isIntersecting)),
+      {
+        threshold: 0,
+      },
+    );
     obs.observe(offer);
     return () => obs.disconnect();
   }, []);
@@ -192,8 +195,8 @@ export function LandingPage() {
             <div className="hero-copy">
               <p className="eyebrow">Aprenda a usar o Claude Code na prática</p>
               <h1>
-                Transforme suas ideias em{" "}
-                <span className="hl">landing pages e projetos reais</span> com Claude Code.
+                Transforme suas ideias em <span className="hl">landing pages e projetos reais</span>{" "}
+                com Claude Code.
               </h1>
               <p className="lede">
                 Aprenda a configurar a ferramenta, use uma skill especializada e siga um processo
@@ -755,8 +758,8 @@ export function LandingPage() {
               </span>
               <h2>Você tem 7 dias para avaliar</h2>
               <p>
-                Acesse o material, siga o passo a passo e veja se a solução faz sentido para você. Se
-                perceber que o conteúdo não é adequado ao seu objetivo, peça o reembolso em até 7
+                Acesse o material, siga o passo a passo e veja se a solução faz sentido para você.
+                Se perceber que o conteúdo não é adequado ao seu objetivo, peça o reembolso em até 7
                 dias pelo suporte, com o e-mail usado na compra.
               </p>
             </Reveal>

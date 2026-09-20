@@ -1,7 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 
 import { getProductDetail } from "@/lib/catalog.functions";
-import { brl, stockLabel, stripHtml } from "@/lib/format";
+import { brl, stockLabel } from "@/lib/format";
+import { stripHtml } from "@/lib/html";
 import type { Product } from "@/lib/categories";
 
 type Loaded = {
@@ -31,13 +32,7 @@ function toLoaded(p: Product): Loaded {
   };
 }
 
-export function Drawer({
-  productId,
-  onClose,
-}: {
-  productId: string | null;
-  onClose: () => void;
-}) {
+export function Drawer({ productId, onClose }: { productId: string | null; onClose: () => void }) {
   const open = productId !== null;
   const panelRef = useRef<HTMLDivElement>(null);
   const [data, setData] = useState<Loaded | null>(null);
