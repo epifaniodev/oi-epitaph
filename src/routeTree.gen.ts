@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ClaudeCodeRouteImport } from './routes/claude-code'
+import { Route as ClaudeKodeeRouteImport } from './routes/claude-kodee'
 import { Route as SuporteRouteImport } from './routes/suporte'
 import { Route as TutorialRouteImport } from './routes/tutorial'
 import { Route as Claude2IndexRouteImport } from './routes/claude2/index'
@@ -27,6 +28,11 @@ const IndexRoute = IndexRouteImport.update({
 const ClaudeCodeRoute = ClaudeCodeRouteImport.update({
   id: '/claude-code',
   path: '/claude-code',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ClaudeKodeeRoute = ClaudeKodeeRouteImport.update({
+  id: '/claude-kodee',
+  path: '/claude-kodee',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SuporteRoute = SuporteRouteImport.update({
@@ -68,6 +74,7 @@ const LojaClaudeCodeRoute = LojaClaudeCodeRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/claude-code': typeof ClaudeCodeRoute
+  '/claude-kodee': typeof ClaudeKodeeRoute
   '/suporte': typeof SuporteRoute
   '/tutorial': typeof TutorialRoute
   '/claude2/obrigado': typeof Claude2ObrigadoRoute
@@ -79,6 +86,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/claude-code': typeof ClaudeCodeRoute
+  '/claude-kodee': typeof ClaudeKodeeRoute
   '/suporte': typeof SuporteRoute
   '/tutorial': typeof TutorialRoute
   '/claude2/obrigado': typeof Claude2ObrigadoRoute
@@ -91,6 +99,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/claude-code': typeof ClaudeCodeRoute
+  '/claude-kodee': typeof ClaudeKodeeRoute
   '/suporte': typeof SuporteRoute
   '/tutorial': typeof TutorialRoute
   '/claude2/obrigado': typeof Claude2ObrigadoRoute
@@ -104,6 +113,7 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/claude-code'
+    | '/claude-kodee'
     | '/suporte'
     | '/tutorial'
     | '/claude2/obrigado'
@@ -115,6 +125,7 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/claude-code'
+    | '/claude-kodee'
     | '/suporte'
     | '/tutorial'
     | '/claude2/obrigado'
@@ -126,6 +137,7 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/claude-code'
+    | '/claude-kodee'
     | '/suporte'
     | '/tutorial'
     | '/claude2/obrigado'
@@ -138,6 +150,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   ClaudeCodeRoute: typeof ClaudeCodeRoute
+  ClaudeKodeeRoute: typeof ClaudeKodeeRoute
   SuporteRoute: typeof SuporteRoute
   TutorialRoute: typeof TutorialRoute
   Claude2ObrigadoRoute: typeof Claude2ObrigadoRoute
@@ -161,6 +174,13 @@ declare module '@tanstack/react-router' {
       path: '/claude-code'
       fullPath: '/claude-code'
       preLoaderRoute: typeof ClaudeCodeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/claude-kodee': {
+      id: '/claude-kodee'
+      path: '/claude-kodee'
+      fullPath: '/claude-kodee'
+      preLoaderRoute: typeof ClaudeKodeeRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/suporte': {
@@ -218,6 +238,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   ClaudeCodeRoute: ClaudeCodeRoute,
+  ClaudeKodeeRoute: ClaudeKodeeRoute,
   SuporteRoute: SuporteRoute,
   TutorialRoute: TutorialRoute,
   Claude2ObrigadoRoute: Claude2ObrigadoRoute,
