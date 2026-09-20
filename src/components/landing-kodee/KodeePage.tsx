@@ -215,6 +215,7 @@ export function KodeePage() {
                       {l.caret ? <span className="caret" aria-hidden="true" /> : null}
                     </p>
                   ))}
+                </div>
               </div>
             </div>
           </div>
