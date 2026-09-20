@@ -30,3 +30,9 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Ambiente local (chave da API) — nunca commitar
+.env
+.env.*
+!.env.example
+.dev.vars

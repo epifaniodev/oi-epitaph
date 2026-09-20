@@ -3,14 +3,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { StoreError, StoreLayout } from "@/components/store/StoreLayout";
 import { getCatalog } from "@/lib/catalog.functions";
 
-/**
- * A raiz é a loja.
- *
- * `head` acrescenta o `<link>` da folha da loja: a landing usa outra folha, com
- * as mesmas variáveis CSS em valores opostos (fundo escuro aqui, creme lá), por
- * isso cada página carrega só a sua.
- */
-export const Route = createFileRoute("/")({
+export const Route = createFileRoute("/loja/")({
   head: () => ({
     meta: [
       { title: "Lista de produtos · Marketplace Axye" },

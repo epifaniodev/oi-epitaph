@@ -10,33 +10,115 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ClaudeCodeRouteImport } from './routes/claude-code'
+import { Route as SuporteRouteImport } from './routes/suporte'
+import { Route as TutorialRouteImport } from './routes/tutorial'
+import { Route as LojaIndexRouteImport } from './routes/loja/index'
+import { Route as LojaSeccaoRouteImport } from './routes/loja/$seccao'
+import { Route as LojaClaudeCodeRouteImport } from './routes/loja/claude-code'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ClaudeCodeRoute = ClaudeCodeRouteImport.update({
+  id: '/claude-code',
+  path: '/claude-code',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SuporteRoute = SuporteRouteImport.update({
+  id: '/suporte',
+  path: '/suporte',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TutorialRoute = TutorialRouteImport.update({
+  id: '/tutorial',
+  path: '/tutorial',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LojaIndexRoute = LojaIndexRouteImport.update({
+  id: '/loja/',
+  path: '/loja/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LojaSeccaoRoute = LojaSeccaoRouteImport.update({
+  id: '/loja/$seccao',
+  path: '/loja/$seccao',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LojaClaudeCodeRoute = LojaClaudeCodeRouteImport.update({
+  id: '/loja/claude-code',
+  path: '/loja/claude-code',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/claude-code': typeof ClaudeCodeRoute
+  '/suporte': typeof SuporteRoute
+  '/tutorial': typeof TutorialRoute
+  '/loja/$seccao': typeof LojaSeccaoRoute
+  '/loja/claude-code': typeof LojaClaudeCodeRoute
+  '/loja/': typeof LojaIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/claude-code': typeof ClaudeCodeRoute
+  '/suporte': typeof SuporteRoute
+  '/tutorial': typeof TutorialRoute
+  '/loja/$seccao': typeof LojaSeccaoRoute
+  '/loja/claude-code': typeof LojaClaudeCodeRoute
+  '/loja': typeof LojaIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/claude-code': typeof ClaudeCodeRoute
+  '/suporte': typeof SuporteRoute
+  '/tutorial': typeof TutorialRoute
+  '/loja/$seccao': typeof LojaSeccaoRoute
+  '/loja/claude-code': typeof LojaClaudeCodeRoute
+  '/loja/': typeof LojaIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/claude-code'
+    | '/suporte'
+    | '/tutorial'
+    | '/loja/$seccao'
+    | '/loja/claude-code'
+    | '/loja/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/claude-code'
+    | '/suporte'
+    | '/tutorial'
+    | '/loja/$seccao'
+    | '/loja/claude-code'
+    | '/loja'
+  id:
+    | '__root__'
+    | '/'
+    | '/claude-code'
+    | '/suporte'
+    | '/tutorial'
+    | '/loja/$seccao'
+    | '/loja/claude-code'
+    | '/loja/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  ClaudeCodeRoute: typeof ClaudeCodeRoute
+  SuporteRoute: typeof SuporteRoute
+  TutorialRoute: typeof TutorialRoute
+  LojaSeccaoRoute: typeof LojaSeccaoRoute
+  LojaClaudeCodeRoute: typeof LojaClaudeCodeRoute
+  LojaIndexRoute: typeof LojaIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +130,59 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/claude-code': {
+      id: '/claude-code'
+      path: '/claude-code'
+      fullPath: '/claude-code'
+      preLoaderRoute: typeof ClaudeCodeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/suporte': {
+      id: '/suporte'
+      path: '/suporte'
+      fullPath: '/suporte'
+      preLoaderRoute: typeof SuporteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/tutorial': {
+      id: '/tutorial'
+      path: '/tutorial'
+      fullPath: '/tutorial'
+      preLoaderRoute: typeof TutorialRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/loja/': {
+      id: '/loja/'
+      path: '/loja'
+      fullPath: '/loja/'
+      preLoaderRoute: typeof LojaIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/loja/$seccao': {
+      id: '/loja/$seccao'
+      path: '/loja/$seccao'
+      fullPath: '/loja/$seccao'
+      preLoaderRoute: typeof LojaSeccaoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/loja/claude-code': {
+      id: '/loja/claude-code'
+      path: '/loja/claude-code'
+      fullPath: '/loja/claude-code'
+      preLoaderRoute: typeof LojaClaudeCodeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  ClaudeCodeRoute: ClaudeCodeRoute,
+  SuporteRoute: SuporteRoute,
+  TutorialRoute: TutorialRoute,
+  LojaSeccaoRoute: LojaSeccaoRoute,
+  LojaClaudeCodeRoute: LojaClaudeCodeRoute,
+  LojaIndexRoute: LojaIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

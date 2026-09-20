@@ -1,0 +1,94 @@
+# ═══════════════════════════════════════════════════════════════════
+# Apache — só se aplica se este projeto for publicado em Apache/cPanel.
+#
+# O build deste repositório é uma app Node/edge (Cloudflare Workers, ver
+# INSTRUCTION.md); num Workers este ficheiro é ignorado, porque não há Apache
+# a lê-lo. Fica aqui para o cenário em que o destino é hospedagem partilhada.
+#
+# ⚠️ Nesse cenário o catálogo NÃO funciona sozinho: a API Axye é autenticada
+# e a chave não pode ir para o browser. Só a landing ("/claude-code") é
+# estática de verdade — a loja precisa do runtime de servidor.
+# ═══════════════════════════════════════════════════════════════════
+
+Options -MultiViews -Indexes
+DirectoryIndex index.html
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+
+  # ── 1. URLs antigos com hash → URLs próprios ─────────────────────
+  # Antes as secções eram `#/proxies`, que o servidor nunca via: não eram
+  # indexáveis nem partilháveis. O fragmento nem chega ao servidor, por isso
+  # estes redirecionamentos só apanham quem escreva o caminho à mão.
+
+  # ── 2. Alias da landing ──────────────────────────────────────────
+  # `/loja/claude-code` é o URL que alguém tentaria por analogia com as
+  # outras secções; a landing vive em `/claude-code`, que é canónico.
+  RewriteRule ^loja/claude-code/?$ /claude-code [R=301,L]
+
+  # ── 3. Índice da loja ────────────────────────────────────────────
+  RewriteRule ^loja/?$ /loja/index.html [L]
+
+  # ── 4. Secções da loja: /loja/proxies → /loja/proxies.html ───────
+  # Serve a página estática da secção quando ela existir. Sem ficheiro (que é o
+  # caso normal — as secções vêm do catálogo, não do disco) a regra não
+  # redireciona para lado nenhum e cai no 404 abaixo, em vez de servir uma
+  # lista errada em silêncio.
+  RewriteCond %{DOCUMENT_ROOT}/loja/$1.html -f
+  RewriteRule ^loja/([a-z0-9-]+)/?$ /loja/$1.html [L]
+
+  # ── 5. URLs limpas genéricas ─────────────────────────────────────
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteCond %{REQUEST_FILENAME}\.html -f
+  RewriteRule ^(.+)$ /$1.html [L]
+
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteCond %{REQUEST_FILENAME}/index.html -f
+  RewriteRule ^(.+)$ /$1/index.html [L]
+</IfModule>
+
+# ── Compressão ────────────────────────────────────────────────────
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/css text/plain text/xml
+  AddOutputFilterByType DEFLATE application/javascript application/json
+  AddOutputFilterByType DEFLATE image/svg+xml
+</IfModule>
+
+# ── Cache ─────────────────────────────────────────────────────────
+<IfModule mod_expires.c>
+  ExpiresActive On
+
+  # HTML nunca em cache: é o que aponta para os ficheiros com hash.
+  ExpiresByType text/html "access plus 0 seconds"
+
+  # Assets com hash no nome (Vite) — podem ficar para sempre.
+  <FilesMatch "\.(js|css|woff2?)$">
+    ExpiresDefault "access plus 1 year"
+    Header set Cache-Control "public, immutable"
+  </FilesMatch>
+
+  # Imagens sem hash: uma semana.
+  <FilesMatch "\.(png|jpe?g|webp|avif|svg|ico)$">
+    ExpiresDefault "access plus 1 week"
+  </FilesMatch>
+</IfModule>
+
+# ── Cabeçalhos de segurança ───────────────────────────────────────
+<IfModule mod_headers.c>
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+  Header always set X-Frame-Options "SAMEORIGIN"
+  Header always set Permissions-Policy "geolocation=(), microphone=(), camera=()"
+
+  # O segredo da API nunca deve chegar ao browser; se algum dia um ficheiro de
+  # ambiente for parar a `public/`, isto impede que seja servido.
+  <FilesMatch "^\.env|\.env\.">
+    Require all denied
+  </FilesMatch>
+</IfModule>
+
+# ── 404 ───────────────────────────────────────────────────────────
+ErrorDocument 404 /404.html
