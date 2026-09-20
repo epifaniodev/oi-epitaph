@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 
 import { FaqList } from "./FaqList";
 import { Reveal } from "./Reveal";
+import { resolveCtaHref } from "./checkout";
 import {
   CASES,
   CROSS,
@@ -35,13 +36,13 @@ type CtaProps = {
 /**
  * Botão de ação.
  *
- * Sem URL de checkout configurado (ver `checkout.ts`), o `href` continua a
- * âncora que o markup lhe deu — nunca `#`, que era um link morto. Quando os
- * URLs existirem, é o `href` que muda; o resto do componente fica igual.
+ * O `href` final vem de `resolveCtaHref`: quando o URL de checkout da oferta
+ * estiver preenchido em `checkout.ts`, é ele que manda; enquanto não estiver,
+ * fica a âncora do markup. Nunca `#`.
  */
-function Cta({ href, className = "btn", children, ...flags }: CtaProps) {
+function Cta({ href, className = "btn", children, ...offers }: CtaProps) {
   return (
-    <a className={className} href={href ?? "#oferta"}>
+    <a className={className} href={resolveCtaHref(href, offers)}>
       {children}
     </a>
   );
