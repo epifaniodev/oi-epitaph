@@ -215,17 +215,6 @@ export function KodeePage() {
                       {l.caret ? <span className="caret" aria-hidden="true" /> : null}
                     </p>
                   ))}
-                </div>
-
-                <div className="float-chip chip-1" aria-hidden="true">
-                  limite
-                </div>
-                <div className="float-chip chip-2" aria-hidden="true">
-                  API do Claude
-                </div>
-                <div className="float-chip chip-3" aria-hidden="true">
-                  projeto continua
-                </div>
               </div>
             </div>
           </div>
