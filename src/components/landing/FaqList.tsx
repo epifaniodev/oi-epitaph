@@ -1,8 +1,13 @@
-import { useState } from "react";
+import { useState, type ReactNode } from "react";
 
 import { Reveal } from "./Reveal";
 
-export type Faq = { q: string; a: string };
+/**
+ * `a` aceita nó React e não só texto: uma resposta por preencher precisa de
+ * mostrar o marcador «Pendente» em vez de um espaço em branco, que passaria por
+ * resposta dada.
+ */
+export type Faq = { q: string; a: ReactNode };
 
 /**
  * Perguntas frequentes — uma resposta aberta de cada vez.

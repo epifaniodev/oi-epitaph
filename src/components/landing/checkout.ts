@@ -56,13 +56,20 @@ export type OfferFlag = keyof typeof CHECKOUTS;
 export function resolveCtaHref(
   href: string | undefined,
   offers: Partial<Record<OfferFlag, boolean>> = {},
+  /**
+   * Mapa alternativo. A segunda oferta (`/claude2`) tem os seus próprios
+   * destinos e passa-os aqui em vez de partilhar `CHECKOUTS`: com um mapa só,
+   * preencher o URL de uma oferta mandaria os botões da outra para o pagamento
+   * errado.
+   */
+  table: Partial<Record<OfferFlag, string>> = CHECKOUTS,
 ): string {
-  const configured = (Object.keys(CHECKOUTS) as OfferFlag[]).find(
-    (flag) => offers[flag] && CHECKOUTS[flag],
+  const configured = (Object.keys(table) as OfferFlag[]).find(
+    (flag) => offers[flag] && table[flag],
   );
-  if (configured) return CHECKOUTS[configured];
+  if (configured) return table[configured] as string;
 
-  const hasOwnOffer = (Object.keys(CHECKOUTS) as OfferFlag[]).some((flag) => offers[flag]);
+  const hasOwnOffer = (Object.keys(table) as OfferFlag[]).some((flag) => offers[flag]);
   if (hasOwnOffer) return href ?? "#oferta";
 
   return !href || href === "#" ? "#oferta" : href;

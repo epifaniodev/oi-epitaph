@@ -39,3 +39,6 @@ dist-ssr
 
 # Config local do dev server (porta, comandos) — não é do projeto
 .claude/
+
+# Estado local do gateway de sincronização
+.gateway-sync.json

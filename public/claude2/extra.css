@@ -1,0 +1,212 @@
+/* ═══════════════════════════════════════════════════════════
+   /claude2 — o que a landing.css não tem
+   ---------------------------------------------------------------
+   Fica em ficheiro próprio, e não dentro da landing.css, porque
+   aquele ficheiro também serve /claude-code: acrescentar-lhe
+   regras novas mexeria numa página já publicada. Aqui só vivem
+   as classes que a segunda oferta introduz.
+   ═══════════════════════════════════════════════════════════ */
+
+/* ── Marcador de informação em falta ──────────────────────── */
+
+.pend {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  padding: 0.2rem 0.55rem 0.2rem 0.3rem;
+  border: 1px dashed var(--danger);
+  border-radius: 8px;
+  background: rgba(180, 68, 46, 0.07);
+  color: inherit;
+  font-size: 0.9em;
+}
+
+.pend-tag {
+  padding: 0.1rem 0.4rem;
+  border-radius: 5px;
+  background: var(--danger);
+  color: #fff;
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+/* ── Faixa de estado, no topo, enquanto houver pendentes ──── */
+
+.pend-banner {
+  position: relative;
+  z-index: 2;
+  padding: 0.7rem 0;
+  border-bottom: 1px solid rgba(180, 68, 46, 0.3);
+  background: rgba(180, 68, 46, 0.09);
+}
+
+.pend-banner .wrap {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.5rem 1rem;
+}
+
+.pend-banner strong {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--danger);
+}
+
+.pend-banner p {
+  margin: 0;
+  font-size: 0.9rem;
+  color: var(--ink-2);
+}
+
+/* ── Página de obrigado ───────────────────────────────────── */
+
+.thanks-head {
+  padding: calc(var(--topbar-h) + 3.2rem) 0 1rem;
+  text-align: center;
+}
+
+.thanks-head h1 {
+  font-size: clamp(1.9rem, 1.3rem + 2.4vw, 3rem);
+  margin-bottom: 0.5rem;
+}
+
+.thanks-mark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 54px;
+  height: 54px;
+  margin-bottom: 1.1rem;
+  border-radius: 50%;
+  border: 1px solid rgba(107, 142, 120, 0.4);
+  background: rgba(107, 142, 120, 0.13);
+  color: #4f6b58;
+}
+
+.thanks-steps {
+  display: grid;
+  gap: 0.85rem;
+  margin: 0 0 1.4rem;
+  padding: 0;
+  list-style: none;
+  counter-reset: tstep;
+}
+
+.thanks-steps li {
+  display: flex;
+  gap: 0.85rem;
+  align-items: flex-start;
+  padding: 0.85rem 1rem;
+  border: 1px solid var(--line-2);
+  border-radius: 12px;
+  background: var(--panel-2);
+  counter-increment: tstep;
+}
+
+.thanks-steps li::before {
+  content: counter(tstep);
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: var(--accent-soft);
+  color: var(--accent-text);
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+/* Área de acesso: caixa própria porque o conteúdo real (credencial) só entra
+   com login — até lá mostra o que tem de existir primeiro. */
+.access-box {
+  padding: 1.4rem 1.5rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--panel);
+}
+
+.access-box.is-locked {
+  border-style: dashed;
+  background: var(--panel-2);
+}
+
+.access-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.4rem 1rem;
+  margin-bottom: 0.8rem;
+}
+
+.access-head h2 {
+  font-size: 1.15rem;
+  margin: 0;
+}
+
+.access-state {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* Linhas «campo → valor» da capacidade contratada. */
+.kv {
+  display: grid;
+  grid-template-columns: minmax(9rem, auto) 1fr;
+  gap: 0.45rem 1.2rem;
+  margin: 0;
+}
+
+.kv dt {
+  color: var(--muted);
+  font-size: 0.92rem;
+}
+
+.kv dd {
+  margin: 0;
+  font-weight: 500;
+}
+
+@media (max-width: 560px) {
+  .kv {
+    grid-template-columns: 1fr;
+    gap: 0.1rem;
+  }
+
+  .kv dd {
+    margin-bottom: 0.6rem;
+  }
+}
+
+/* Bloco interno: notas de operação, não copy de cliente. */
+.internal {
+  padding: 1.2rem 1.4rem;
+  border: 1px dashed var(--line);
+  border-radius: var(--radius);
+  background: rgba(25, 25, 25, 0.03);
+}
+
+.internal-tag {
+  display: inline-block;
+  margin-bottom: 0.7rem;
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.internal .mini li::before {
+  color: var(--muted);
+}
