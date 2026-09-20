@@ -12,15 +12,17 @@ Nova landing de oferta para a Kodee (continuar programando pela API do Claude qu
 
 ## Estrutura da página (seguindo a copy, na ordem)
 
-1. **Hero** — Headline: "Seu projeto não precisa parar quando o limite do Claude Code acaba." · Subheadline · Oferta (1M tokens / renovação a cada 5h / R$ 75) · Botão "Quero continuar meu projeto" · Texto de apoio "Acesso rápido. Mais capacidade. Menos tempo esperando."
+1. **Hero** — Headline: "Seu projeto não precisa parar quando o limite do Claude Code acaba." · Subheadline · Oferta (1M tokens / renovação a cada 5h ) · Botão "Quero continuar meu projeto" · Texto de apoio "Acesso rápido. Mais capacidade. Menos tempo esperando."
 2. **Dor** — "O limite apareceu no pior momento?" com a lista do que a espera custa (tempo, concentração, velocidade, entregas)
-3. **Solução** — "Continue construindo com a Kodee" + lista de usos (programar, sites, sistemas, automações, SaaS, refatorar, estudar) + botão
-4. **Benefícios** — 5 blocos: Continue no ritmo / Projetos maiores / Menos tempo parado / Produtividade / Opção acessível
-5. **Como funciona** — 3 passos: atinge o limite → acessa a Kodee → volta a construir + botão "Continuar agora"
-6. **Para quem é** — lista de perfis (freelancers, devs, SaaS, automações…)
-7. **Oferta** — "Continue seu projeto por R$ 75" com os itens recebidos, preço e CTA "Quero continuar programando" + texto de segurança
-8. **Quebra de objeções** — 4 perguntas e respostas da copy, incluindo "Funciona para qualquer tarefa?"
-9. **CTA final** — "Não deixe o limite interromper uma boa ideia" + botão "Quero acessar a Kodee" + texto "Até 1 milhão de tokens. Renovação a cada 5 horas. R$ 75."
+3. **Solução** — "Continue construindo com a API do Claude Code" 
+  &nbsp;
+4. **Como funciona** — 3 passos: atinge o limite → acessa a Kodee → volta a construir + botão "Continuar agora"
+  &nbsp;
+5. **Oferta** — "Continue seu projeto por R$ 75" com os itens recebidos, preço e CTA "Quero continuar programando" + texto de segurança
+6. **Quebra de objeções** — 4 perguntas e respostas da copy, incluindo "Funciona para qualquer tarefa?"
+  1. **CTA final** — "Não deixe o limite interromper uma boa ideia" + botão "Quero acessar a Kodee" + texto "Até 1 milhão de tokens. Renovação a cada 5 horas. R$ 75."  
+    
+  Preciso colcar perguntas frequentes no final
 
 ## Arquivos
 
