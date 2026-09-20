@@ -2,7 +2,6 @@ import { useEffect, useRef, useState } from "react";
 
 import { FaqList } from "@/components/landing/FaqList";
 import { Reveal } from "@/components/landing/Reveal";
-import { resolveCtaHref } from "@/components/landing/checkout";
 import {
   BRAND,
   DOR,
@@ -22,20 +21,23 @@ import {
  *
  * ⚠️ Vazio por decisão: tal como nas outras landings, o link de pagamento
  * ainda não foi fornecido. Enquanto estiver vazio, os CTAs caem na âncora
- * `#oferta` (comportamento de `resolveCtaHref`). Basta preencher a constante
+ * `#oferta`, onde a decisão de compra acontece. Basta preencher a constante
  * para ligar a compra.
  */
 const KODEE_CHECKOUT_URL = "";
 
-const KODEE_CHECKOUTS = { kodee: KODEE_CHECKOUT_URL } as const;
+/** Mesma regra de `resolveCtaHref`, para uma oferta só: URL configurado manda; sem URL, `#oferta`. */
+function ctaHref(): string {
+  return KODEE_CHECKOUT_URL || "#oferta";
+}
 
 /**
  * Botão de ação da Kodee. Mesmo mecanismo das outras landings: com o URL de
- * checkout preenchido, é ele que manda; sem ele, a âncora do markup.
+ * checkout preenchido, é ele que manda; sem ele, a âncora da oferta.
  */
 function Cta({ className = "btn", children }: { className?: string; children: React.ReactNode }) {
   return (
-    <a className={className} href={resolveCtaHref(undefined, { kodee: true }, KODEE_CHECKOUTS)}>
+    <a className={className} href={ctaHref()}>
       {children}
     </a>
   );
